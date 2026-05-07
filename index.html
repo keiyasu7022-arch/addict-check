@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>チェック</title>
+    <link rel="stylesheet" href="style.css">
+    <!--googleフォント-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap" rel="stylesheet">
+    <!--リセットCSS-->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <style>
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* 中身を縦に並べる */
+            justify-content: center; /* 垂直方向の中央 */
+            align-items: center;     /* 水平方向の中央 */
+            min-height: 100vh;       /* 画面の高さ分を確保 */
+        }
+
+        #check-in{
+            display: block;
+        }
+
+        #check-in {
+            margin-top: 12px;
+        }
+
+        button {
+            border: 2px solid #333; /* 2pxの太さで、実線、暗い灰色 */
+            border-radius:10px;
+            padding: 3px 5px; /* 上下10px、左右20pxの余白 */
+        }
+    </style>
+</head>
+<body>
+    <div id="message">チェック</div>
+    <div id="radio">
+        <input type="checkbox" id="apple" name="fruit" value="apple">
+        <label for="apple">確認した</label>
+    </div>
+
+    <button id="check-in">チェック</button>
+
+
+    <script>
+        const check_list=[
+            '電気消しましたか？',
+            '冷房、暖房消しましたか？',
+            'レジ締めしましたか？',
+            '音楽消しましたか？',
+            'モニター消しましたか？'
+        ];
+        const element=document.getElementById('message');
+        const button = document.getElementById('check-in');
+        const checkbox = document.getElementById('apple');
+        let i = 0;
+        button.disabled = true;
+        button.disabled = !checkbox.checked;
+        checkbox.addEventListener('change',()=>{
+            button.disabled = !checkbox.checked;
+        });
+        button.addEventListener('click',()=>{
+            i++;
+            if(button.innerText === 'もう一度'){
+                button.innerText = 'チェック';
+                document.getElementById('radio').style.display = 'block';
+            }
+            if(i > check_list.length){
+                element.textContent = '全てチェックしました！';
+                document.getElementById('radio').style.display = 'none';
+                button.innerText='もう一度';
+                i=0;
+            } else {
+                element.innerText = check_list[i - 1];
+                button.disabled = true;
+                checkbox.checked = false;
+            }
+        });
+    </script>
+
+</body>
+</html>
